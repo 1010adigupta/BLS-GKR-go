@@ -11,20 +11,9 @@ import (
 	sw_bls12381 "github.com/consensys/gnark/std/algebra/emulated/sw_bls12381"
 
 	"github.com/PolyhedraZK/ExpanderCompilerCollection/ecgo"
-	"github.com/consensys/gnark-crypto/ecc"
+	// "github.com/consensys/gnark-crypto/ecc"
+	"github.com/PolyhedraZK/ExpanderCompilerCollection/ecgo/field/bn254"
 )
-
-func BLSVerify(api frontend.API, pub bls12381.G1Affine, sig bls12381.G2Affine, g1GN bls12381.G1Affine, h bls12381.G2Affine) (int, error) {
-	bool, e := bls12381.PairingCheck([]bls12381.G1Affine{g1GN, pub}, []bls12381.G2Affine{sig, h})
-	if e != nil {
-		return 0, e
-	}
-	if bool {
-		return 1, nil
-	} else {
-		return 0, nil
-	}
-}
 
 type BLSSigGKRCircuit struct {
 	Pub bls12381.G1Affine
@@ -104,7 +93,7 @@ func TestBlsSigGKRTestSolve(t *testing.T) {
 		Sig: sig,
 	}
 	// BLS12-381 scalar field modulus
-	circuit, err := ecgo.Compile(ecc.BLS12_381.ScalarField(), blsCircuit)
+	circuit, err := ecgo.Compile(bn254.ScalarField, blsCircuit)
 	if err != nil {
 		panic(err)
 	}
