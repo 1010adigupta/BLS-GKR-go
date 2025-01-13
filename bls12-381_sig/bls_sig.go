@@ -10,18 +10,6 @@ import (
 
 const g2_dst = "BLS_SIG_BLS12381G2_XMD:SHA-256_SSWU_RO_POP_"
 
-func BLSVerify(pub bls12381.G1Affine, sig bls12381.G2Affine, g1GN bls12381.G1Affine, h bls12381.G2Affine) (int, error) {
-	bool, e := bls12381.PairingCheck([]bls12381.G1Affine{g1GN, pub}, []bls12381.G2Affine{sig, h})
-	if e != nil {
-		return 0, e
-	}
-	if bool {
-		return 1, nil
-	} else {
-		return 0, nil
-	}
-}
-
 func BlsAssertG2Verification(api frontend.API, pub bls12381.G1Affine, sig bls12381.G2Affine, msg []byte) error {
 	// public key cannot be infinity
 	xtest := pub.X.IsZero()
