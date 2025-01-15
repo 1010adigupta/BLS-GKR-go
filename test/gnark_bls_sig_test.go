@@ -4,11 +4,11 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/consensys/gnark/test"
+	"github.com/consensys/gnark-crypto/ecc"
 	bls12381 "github.com/consensys/gnark-crypto/ecc/bls12-381"
 	"github.com/consensys/gnark/frontend"
 	sw_bls12381 "github.com/consensys/gnark/std/algebra/emulated/sw_bls12381"
-	"github.com/consensys/gnark-crypto/ecc"
+	"github.com/consensys/gnark/test"
 )
 
 const g2_dst = "BLS_SIG_BLS12381G2_XMD:SHA-256_SSWU_RO_POP_"
@@ -107,12 +107,12 @@ func TestBlsSigTestSolve(t *testing.T) {
 		t.Fail() // invalid inputs, won't verify
 	}
 
-	circuit := BLSSigGKRCircuit{
+	circuit := BLSSigGnarkCircuit{
 		Pub: pub,
 		msg: msgBytes,
 		Sig: sig,
 	}
-	witness := BLSSigGKRCircuit{
+	witness := BLSSigGnarkCircuit{
 		Pub: pub,
 		msg: msgBytes,
 		Sig: sig,
