@@ -87,13 +87,8 @@ func TestBlsSigGKRTestSolve(t *testing.T) {
 		t.Fail() // invalid inputs, won't verify
 	}
 
-	blsCircuit := &BLSSigGKRCircuit{
-		Pub: pub,
-		msg: msgBytes,
-		Sig: sig,
-	}
 	// BLS12-381 scalar field modulus
-	circuit, err := ecgo.Compile(bn254.ScalarField, blsCircuit)
+	circuit, err := ecgo.Compile(bn254.ScalarField, &BLSSigGKRCircuit{})
 	if err != nil {
 		panic(err)
 	}
